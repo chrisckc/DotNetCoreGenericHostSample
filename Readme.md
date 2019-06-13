@@ -65,8 +65,6 @@ However if the long running task does not accept a CancellationToken such as:
 Notice that MyService Z stops correctly but MyServiceY and MyServiceX do not stop properly because an exception is raised during the stopping of the second service (whichever service is next in line to be stopped).
 If there is only a single service there is no issue with Task that can't be cancelled.
 
-Also notice that when running in Docker, the same issue occurs but the exception is not visible in the docker logs.
-
 ```
 Unhandled Exception: System.OperationCanceledException: The operation was canceled.
    at System.Threading.CancellationToken.ThrowOperationCanceledException()
@@ -76,6 +74,8 @@ Unhandled Exception: System.OperationCanceledException: The operation was cancel
    at DotNetCoreGenericHostSample.ProgramHelloWorld.Main(String[] args) in /Users/.........../DotNetCoreGenericHostSample/ProgramHelloWorld.cs:line 42
    at DotNetCoreGenericHostSample.ProgramHelloWorld.<Main>(String[] args)
 ```
+
+Also notice that when running in Docker, the same issue occurs but the exception is not visible in the docker logs.
 
 ### Debugging
 
