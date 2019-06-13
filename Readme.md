@@ -19,6 +19,8 @@ The StartupObject in the csproj file has been set to ProgramHelloWorld.
 
 ProgramFullControl modified to use WaitForShutdownAsync()
 
+Unused code lines from the sample have been left in but commented out.
+
 Logging has been configured properly to allow the log messages to be seen.
 
 VSCode debug setup added.
@@ -40,6 +42,8 @@ I have also added MyServiceC, similar to MyServiceB to demonstrate HostedService
 Added MyServiceX, MyServiceY, and MyServiceZ to demonstrate running multiple concurrent HostedServices inheriting from BackgroundTask.
 
 Added Docker config for testing the starting and stopping of a container running HostedServices.
+
+Also in a real life situation it would be useful to be able to specify a global delay in starting all of the HostedServices after the GenericHost is started up. For example in a docker container scenario, a database container might not be ready by the time one of the hosted services needs to access the database etc. some example code has been included in the MyService implementations which simply adds a Task.Delay before starting the Task loop.
 
 ### Issues?
 

@@ -35,7 +35,7 @@ namespace DotNetCoreGenericHostSample
             {
                 Logger.LogInformation("{0} : MyServiceC is doing background work.", DateTime.Now.ToString());
                 await Task.Delay(TimeSpan.FromSeconds(7), cancellationToken).ContinueWith(task => { });
-                 //await Task.Delay(TimeSpan.FromSeconds(7));
+                //await Task.Delay(TimeSpan.FromSeconds(7));
                 //Logger.LogInformation("MyServiceB is doing background work.");
             }
 

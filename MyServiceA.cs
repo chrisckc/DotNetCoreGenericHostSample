@@ -31,8 +31,11 @@ namespace DotNetCoreGenericHostSample
             {
                 Logger.LogInformation("{0} : MyServiceA is doing background work.", DateTime.Now.ToString());
 
-                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken).ContinueWith(task => { });
-                //await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                // When this is cancelled, an Exception is raised preventing any clean-up code from running.
+                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+
+                // Allows the clean-up code below to run by swallowing the exception raised by cancelling the Delay
+                //await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken).ContinueWith(task => { });
             }
 
             Logger.LogInformation("{0} : MyServiceA background task is stopping.", DateTime.Now.ToString());
