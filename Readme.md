@@ -105,7 +105,7 @@ then check the logs using:
 
  ```docker logs dotnetcoregenerichostsample_dotnetcoregenerichostsample_1```
 
-Notice the same issue when using MyServiceX, MyServiceY, and MyServiceZ concurrently and Service Y and X are not stopped properly, only this time the Exception is not shown in the docker logs whcih is a bad thing.
+Notice the same issue when using MyServiceX, MyServiceY, and MyServiceZ concurrently and Service Y and X are not stopped properly, only this time the Exception is not shown in the docker logs which is a bad thing.
 
 This can be resolved in the ProgramFullControl by wrapping WaitForShutdownAsync() in a try catch and writing the exception to the console, however the same technique does not work for ProgramHelloWorld (wrapping RunConsoleAsync(); in a try catch).
 Set the Startup object in the csproj file to ProgramFullControlDocker or ProgramHelloWorldDocker to test this.
