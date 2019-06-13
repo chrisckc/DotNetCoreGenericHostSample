@@ -29,6 +29,19 @@ VSCode debug setup added.
 
 Modified logging to include timestamps and added some extra logging to show the sequence of events when performing a Ctrl-C to stop the process.
 
+
+I have also added MyServiceC, similar to MyServiceB to demonstrate HostedService without inheriting from BackgroundTask but allowing cancellation, it is more or less doing what is already done by the BackgroundService base class.
+
+Added MyServiceX, MyServiceY, and MyServiceZ to demonstrate running multiple concurrent HostedServices inheriting from BackgroundTask.
+
+Added Docker config for testing the starting and stopping of a container running HostedServices.
+
+In a real life situation it would be useful to be able to specify a global delay in starting all of the HostedServices after the GenericHost is started up. For example in a docker container scenario, a database container might not be ready by the time one of the hosted services needs to access the database etc. some example code has been included in the MyService implementations which simply adds a Task.Delay before starting the Task loop.
+
+### Issues?
+
+#### Issue 1
+
 The sample code does not demonstrate the usage very well, for example using MyServiceA it is not possible to run any clean-up code after
 
 ```await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);```
@@ -37,15 +50,7 @@ This is because cancelling a Task raises an Exception, so if this was a real wor
 
 ```await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken).ContinueWith(task => { });```
 
-I have also added MyServiceC, similar to MyServiceB to demonstrate HostedService without inheriting from BackgroundTask but allowing cancellation, it is more or less doing what is already done by the BackgroundService base class.
-
-Added MyServiceX, MyServiceY, and MyServiceZ to demonstrate running multiple concurrent HostedServices inheriting from BackgroundTask.
-
-Added Docker config for testing the starting and stopping of a container running HostedServices.
-
-Also in a real life situation it would be useful to be able to specify a global delay in starting all of the HostedServices after the GenericHost is started up. For example in a docker container scenario, a database container might not be ready by the time one of the hosted services needs to access the database etc. some example code has been included in the MyService implementations which simply adds a Task.Delay before starting the Task loop.
-
-### Issues?
+#### Issue 2
 
 When using MyServiceX, MyServiceY, and MyServiceZ concurrently, the services are stopped in sequence when Ctrl-C is pressed, rather than concurrently.
 Not sure if this is the intended behaviour as it results in a situation where MyServiceZ announces it is stopping and then MyServiceX and MyServiceY announce that they are doing background work in a new cycle.
@@ -84,7 +89,7 @@ To see what happens the whe process is stopped:
 
 ```export ASPNETCORE_ENVIRONMENT=Development```
 
-```dotnet run```
+```dotnet run -p DotNetCoreGenericHostSample.csproj```
 
 Then use Ctrl-C to stop it.
 
