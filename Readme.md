@@ -60,7 +60,7 @@ Despite the above it works fine as long as the long running tasks can be cancell
 
 However if the long running task does not accept a CancellationToken such as:
 
-```await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);```
+```await Task.Delay(TimeSpan.FromSeconds(5));```
 
 Notice that MyService Z stops correctly but MyServiceY and MyServiceX do not stop properly because an exception is raised during the stopping of the second service (whichever service is next in line to be stopped).
 If there is only a single service there is no issue with Task that can't be cancelled.

@@ -26,12 +26,12 @@ namespace DotNetCoreGenericHostSample
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<MyServiceA>();
+                    //services.AddHostedService<MyServiceA>();
                     //services.AddHostedService<MyServiceB>();
                     //services.AddHostedService<MyServiceC>();
-                    //services.AddHostedService<MyServiceX>();
-                    //services.AddHostedService<MyServiceY>();
-                    //services.AddHostedService<MyServiceZ>();
+                    services.AddHostedService<MyServiceX>();
+                    services.AddHostedService<MyServiceY>();
+                    services.AddHostedService<MyServiceZ>();
                 });
 
             // dotnet 3.0 only
