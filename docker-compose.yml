@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  dotnetcoregenerichostsample:
+    image: ${DOCKER_REGISTRY-}dotnetcoregenerichostsample
+    build:
+      context: .
+      dockerfile: ./Dockerfile
