@@ -48,7 +48,7 @@ The sample code does not demonstrate the usage very well, for example using MySe
 
 This is because cancelling a Task raises an Exception, so if this was a real world Task it would need to be wrapped in a try catch or use .ContinueWith on the Task to swallow the Exception so that any clean-up code can run.
 
-```await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken).ContinueWith(task => { });```
+```await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken).ContinueWith(task => { });```
 
 #### Issue 2
 
@@ -56,7 +56,7 @@ When using MyServiceX, MyServiceY, and MyServiceZ concurrently, the services are
 Not sure if this is the intended behaviour as it results in a situation where MyServiceZ announces it is stopping and then MyServiceX and MyServiceY announce that they are doing background work in a new cycle.
 Despite the above it works fine as long as the long running tasks can be cancelled with CancellationToken, for example:
 
-```await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken).ContinueWith(task => { });```
+```await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken).ContinueWith(task => { });```
 
 However if the long running task does not accept a CancellationToken such as:
 
